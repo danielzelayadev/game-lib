@@ -1,20 +1,17 @@
 "use strict";
 
-const Library = require("../models/library");
-const mongoose = require("mongoose");
+var Library = require("../models/library");
+var mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/testdb", {useMongoClient: true});
-
-mongoose.Promise = global.Promise;
-
-/*
-  TODO:
-  Utils para los tests de los models
-*/
+var { fieldTest } = require("./test-utils");
 
 var nameTest    = fieldTest("name"),
     ownerIdTest = fieldTest("ownerId"),
     gameIdsTest = fieldTest("gameIds");
+
+mongoose.connect("mongodb://localhost/testdb", {useMongoClient: true});
+
+mongoose.Promise = global.Promise;
 
 describe("Library Model", () => {
 
@@ -54,15 +51,3 @@ describe("Library Model", () => {
 });
 
 mongoose.disconnect();
-
-function fieldTest(field) {
-  return model => {
-    expect.assertions(1);
-
-    return model
-      .validate()
-      .catch(err => {
-        expect(err.errors[field]).toBeDefined();
-      });
-  };
-}
