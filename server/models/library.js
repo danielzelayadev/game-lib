@@ -16,5 +16,11 @@ module.exports = mongoose.model("", new Schema({
       },
       message: `The id {VALUE} doesn't exist for any owner.`
     }
+  },
+  gameIds: {
+    type: [Number],
+    validate: {
+      validator: ids => false
+    }
   }
 }));

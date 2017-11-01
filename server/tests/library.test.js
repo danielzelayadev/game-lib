@@ -13,7 +13,8 @@ mongoose.Promise = global.Promise;
 */
 
 var nameTest    = fieldTest("name"),
-    ownerIdTest = fieldTest("ownerId");
+    ownerIdTest = fieldTest("ownerId"),
+    gameIdsTest = fieldTest("gameIds");
 
 describe("Library Model", () => {
 
@@ -36,6 +37,16 @@ describe("Library Model", () => {
       return ownerIdTest(new Library({
         name: "MyLib",
         ownerId: -100
+      }));
+    });
+  });
+
+  describe("game ids field", () => {
+    it("should throw err if a game id doesn't exist", () => {
+      return gameIdsTest(new Library({
+        name: "MyLib",
+        ownerId: 1,
+        gameIdsTest: [1,2,-100]
       }));
     });
   });
