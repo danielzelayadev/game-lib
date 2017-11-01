@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+var mongoose = require("mongoose");
+var { Schema } = mongoose;
 
-module.exports = mongoose.model("", new Schema({
-  name: { 
+var librarySchema = new Schema({
+  name: {
     type: String,
     required: true,
     validate: /^[a-zA-Z\d]([a-zA-Z\d- &]*[a-zA-Z\d])?$/
@@ -11,7 +11,7 @@ module.exports = mongoose.model("", new Schema({
     type: Number,
     required: true,
     validate: {
-      validator : id => {
+      validator: id => {
         return false;
       },
       message: `The id {VALUE} doesn't exist for any owner.`
@@ -23,4 +23,6 @@ module.exports = mongoose.model("", new Schema({
       validator: ids => false
     }
   }
-}));
+});
+
+module.exports = mongoose.model("Library", librarySchema);
